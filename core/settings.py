@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # apps
     'user.apps.UserConfig',
     'api.apps.ApiConfig',
+    'base.apps.BaseConfig',
 
     # third party libraries
     'rest_framework',
