@@ -5,7 +5,22 @@ from django.utils.translation import gettext as _
 
 from .manager import UserManager
 
+
+
 class User(AbstractUser):
+
+    BUSINESS_CATEGORY_CHOICES = [
+        ('Technology', 'Technology'),
+        ('Lifestyle', 'Lifestyle'),
+        ('Health', 'Health'),
+        ('Food', 'Food'),
+        ('Banking', 'Banking'),
+        ('Aviation', 'Aviation'),
+        ('E-commerce', 'E-commerce'),
+        ('Vehicles & Automobiles', 'Vehicles & Automobiles'),
+        ('Agriculture', 'Agriculture'),
+
+    ]
 
     full_name = models.CharField(_('Full Name'), max_length=200, null=True, blank=True)
     username = models.CharField(
@@ -18,6 +33,7 @@ class User(AbstractUser):
         blank=True
     )
     email = models.EmailField(_('Email Address'), unique=True)
+    business_category = models.CharField(_('Business Category'), choices=BUSINESS_CATEGORY_CHOICES, max_length=30, null=True)
 
     objects = UserManager()
     
