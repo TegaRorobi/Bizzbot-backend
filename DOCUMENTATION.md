@@ -32,6 +32,5 @@ METHOD   | ENDPOINT           | FUNCTIONALITY | DESCRIPTION
 _GET_    | `/api/users/`      | Get all users | This endpoint returns a paginated response of all users stored in the database, with all necessary fields.
 _POST_   | `/api/users/`      | Create a user  | This endpoint accepts common parameters of a user, saves the user to the database and returns the created user.
 _PUT_    | `/api/users/{pk}/` | Completely update a user | This endpoint accepts the id of a user as a path parameter, searches for the user in the database and returns the user.
-_PATCH_  | `/api/users/{pk}/` | Partially update a user | This endpoint accepts the id of a user as a path parameter, searches for the user in the database, and attempts to update ALL fields of the user.
-        
+_PATCH_  | `/api/users/{pk}/` | Partially update a user | This endpoint accepts the id of a user as a path parameter, searches for the user in the database, and attempts to update ALL fields of the user.     
 _DELETE_ | `/api/users/{pk}/` | Delete a user | This endpoint accepts the id of a user as a path parameter, searches for the user in the database and deletes the user completely.
