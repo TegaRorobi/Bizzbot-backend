@@ -39,6 +39,12 @@ class UsersViewSet(viewsets.ModelViewSet):
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
     
+    @swagger_auto_schema(
+        operation_summary='Update all the details of a particular user',
+        operation_description='This endpoint accepts the id of a user as a path parameter, '
+        'searches for the user in the database, and attempts to update ALL fields of the user.\n'
+        'Note: The PATCH method to this endpoint might be a safer option, depending on the use case.'
+    )
     def update(self, *args, **kwargs):
         return super().update(*args, **kwargs)
     
