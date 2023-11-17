@@ -6,6 +6,8 @@ URL configuration for core project.
 from django.contrib import admin
 from django.urls import path, re_path, include
 
+from django.conf.urls.static import static
+from django.conf import settings
 from rest_framework.permissions import AllowAny
 
 from drf_yasg.views import get_schema_view
@@ -31,4 +33,6 @@ urlpatterns = [
     re_path('^api/swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(), name='schema-json'),
     re_path('^api/swagger/?$', schema_view.with_ui('swagger'), name='schema-swagger'),
     re_path('^api/redoc/?$', schema_view.with_ui('redoc'), name='schema-redoc'),
+
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 ]
