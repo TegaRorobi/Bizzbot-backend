@@ -24,7 +24,12 @@ class User(AbstractUser):
         ('Agriculture', 'Agriculture'),
     ]
 
-    full_name = models.CharField(_('Full Name'), max_length=200, null=True, blank=True)
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female')
+    ]
+
+    full_name = models.CharField(_('Full Name'), max_length=255)
     username = models.CharField(
         _("username"),
         max_length=150,
@@ -35,11 +40,16 @@ class User(AbstractUser):
         blank=True
     )
     email = models.EmailField(_('Email Address'), unique=True)
-    country = CountryField(null=True)
-    phone_number = PhoneNumberField(null=True)
+    country = CountryField(null=True, blank=True)
+    city = models.CharField(_('City'), max_length=255, null=True, blank=True)
+    phone_number = PhoneNumberField(null=True, blank=True)
 
-    business_category = models.CharField(_('Business Category'), choices=BUSINESS_CATEGORY_CHOICES, max_length=30, null=True)
-    business_name = models.CharField(_('Business Name'), max_length=200, null=True)
+    age = models.IntegerField(_("Age"), null=True, blank=True)
+    gender = models.CharField(_("Gender"), choices=GENDER_CHOICES, max_length=10, null=True, blank=True)
+    bio = models.TextField(_('Bio/Interests'), null=True, blank=True)
+
+    business_category = models.CharField(_('Business Category'), choices=BUSINESS_CATEGORY_CHOICES, max_length=30, null=True, blank=True)
+    business_name = models.CharField(_('Business Name'), max_length=255, null=True, blank=True)
     business_description = models.TextField(_('Business Description'), null=True, blank=True)
 
 
