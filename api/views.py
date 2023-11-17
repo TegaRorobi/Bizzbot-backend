@@ -57,5 +57,10 @@ class UsersViewSet(viewsets.ModelViewSet):
     def partial_update(self, *args, **kwargs):
         return super().partial_update(*args, **kwargs)
     
+    @swagger_auto_schema(
+        operation_summary='Delete a specific user',
+        operation_description='This endpoint accepts the id of a user as a path parameter, '
+        'searches for the user in the database and deletes the user completely.'
+    )
     def destroy(self, *args, **kwargs):
         return super().destroy(*args, **kwargs)
