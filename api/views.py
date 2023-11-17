@@ -22,6 +22,10 @@ class UsersViewSet(viewsets.ModelViewSet):
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Create a new user',
+        operation_description='This endpoint accepts common parameters of a user, saves the user to the database and returns the created user.'
+    )
     def create(self, *args, **kwargs):
         return super().create(*args, **kwargs)
     
