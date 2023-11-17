@@ -48,6 +48,12 @@ class UsersViewSet(viewsets.ModelViewSet):
     def update(self, *args, **kwargs):
         return super().update(*args, **kwargs)
     
+    @swagger_auto_schema(
+        operation_summary='Update some details of a particular user',
+        operation_description='This endpoint accepts the id of a user as a path parameter, '
+        'searches for the user in the database, and updates only the fields sent in the request body.\n'
+        'Note: This is a safer and less rigid alternative to the PUT method of the same endpoint.'
+    )
     def partial_update(self, *args, **kwargs):
         return super().partial_update(*args, **kwargs)
     
