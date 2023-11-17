@@ -34,7 +34,7 @@ class LoginRefreshView(TokenRefreshView):
 
 class LogoutView(TokenBlacklistView):
     @swagger_auto_schema(
-        operation_summary='Invalidata a user\'s JWT refresh token',
+        operation_summary='Invalidate a user\'s JWT refresh token',
         operation_description='Takes a user\'s refresh token and blacklists it, thereby invalidating it as a form of logout.'
     )
     def post(self, *args, **kwargs):
