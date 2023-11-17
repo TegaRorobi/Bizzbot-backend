@@ -3,6 +3,8 @@ Pillow
 python-decouple
 djangorestframework
 djangorestframework_simplejwt
+django-countries
+django-phonenumber-field
 django-cors-headers
 whitenoise
 drf_yasg
