@@ -162,3 +162,7 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+LOGIN_URL = f'/{ADMIN_URL}login/?next=/admin/'
+LOGOUT_URL = f'/{ADMIN_URL}logout/'
