@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext as _
 
+from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
+
 from .manager import UserManager
 
 
@@ -32,10 +35,12 @@ class User(AbstractUser):
         blank=True
     )
     email = models.EmailField(_('Email Address'), unique=True)
+    country = CountryField(null=True)
+    phone_number = PhoneNumberField(null=True)
 
     business_category = models.CharField(_('Business Category'), choices=BUSINESS_CATEGORY_CHOICES, max_length=30, null=True)
     business_name = models.CharField(_('Business Name'), max_length=200, null=True)
-    business_description = models.TextField(null=True, blank=True)
+    business_description = models.TextField(_('Business Description'), null=True, blank=True)
 
 
     objects = UserManager()
