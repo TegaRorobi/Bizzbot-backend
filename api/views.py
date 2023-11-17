@@ -23,6 +23,15 @@ class LoginView(TokenObtainPairView):
         return super().post(*args, **kwargs)
 
 
+class LoginRefreshView(TokenRefreshView):
+    @swagger_auto_schema(
+        operation_summary='Refresh a user\'s JWT access token with a refresh token.',
+        operation_description='Takes a user\'s refresh token and generates a new access token from it and returns it.'
+    )
+    def post(self, *args, **kwargs):
+        return super().post(*args, **kwargs)
+
+
 class UsersViewSet(viewsets.ModelViewSet):
 
     "API Viewset to list out, create, retrieve, update and delete users."
