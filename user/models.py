@@ -19,7 +19,6 @@ class User(AbstractUser):
         ('E-commerce', 'E-commerce'),
         ('Vehicles & Automobiles', 'Vehicles & Automobiles'),
         ('Agriculture', 'Agriculture'),
-
     ]
 
     full_name = models.CharField(_('Full Name'), max_length=200, null=True, blank=True)
@@ -33,7 +32,11 @@ class User(AbstractUser):
         blank=True
     )
     email = models.EmailField(_('Email Address'), unique=True)
+
     business_category = models.CharField(_('Business Category'), choices=BUSINESS_CATEGORY_CHOICES, max_length=30, null=True)
+    business_name = models.CharField(_('Business Name'), max_length=200, null=True)
+    business_description = models.TextField(null=True, blank=True)
+
 
     objects = UserManager()
     
