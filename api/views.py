@@ -1,11 +1,26 @@
 from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from .serializers import *
 
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenBlacklistView
+)
 
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
+
+
+class LoginView(TokenObtainPairView):
+    @swagger_auto_schema(
+        operation_summary='Get a user\'s JWT refresh and access tokens.',
+        operation_description='Takes a set of user credentials (email and password) and returns '
+        'an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.'
+    )
+    def post(self, *args, **kwargs):
+        return super().post(*args, **kwargs)
 
 
 class UsersViewSet(viewsets.ModelViewSet):
