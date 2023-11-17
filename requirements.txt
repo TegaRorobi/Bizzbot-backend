@@ -5,6 +5,7 @@ djangorestframework
 djangorestframework_simplejwt
 django-countries
 django-phonenumber-field
+phonenumbers
 django-cors-headers
 whitenoise
 drf_yasg
