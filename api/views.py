@@ -17,18 +17,25 @@ class UsersViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         operation_summary='List out all users',
-        operation_description='This endpoint returns a paginated response of all users stored in the database, with all necessary fields.'
+        operation_description='This endpoint returns a paginated response of '
+        'all users stored in the database, with all necessary fields.'
     )
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary='Create a new user',
-        operation_description='This endpoint accepts common parameters of a user, saves the user to the database and returns the created user.'
+        operation_description='This endpoint accepts common parameters of a user, '
+        'saves the user to the database and returns the created user.'
     )
     def create(self, *args, **kwargs):
         return super().create(*args, **kwargs)
     
+    @swagger_auto_schema(
+        operation_summary='Retrieve a specific user by id',
+        operation_description='This endpoint accepts the id of a user as a path parameter, '
+        'searches for the user in the database and returns the user.'
+    )
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
     
