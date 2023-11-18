@@ -21,6 +21,7 @@ class UserSerializer(CountryFieldMixin, serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    seller = serializers.PrimaryKeyRelatedField(read_only=True, many=False)
     class Meta:
         model = Product
         fields = '__all__'

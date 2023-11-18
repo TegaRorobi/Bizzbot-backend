@@ -116,9 +116,17 @@ class ProductsViewSet(viewsets.ModelViewSet):
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Create a new product',
+        operation_description='Accepts the common parameters of a product, but doesn\'t accept the seller id. '
+        'The seller id is automatically gotten from the currently authenticated user.'
+    )
     def create(self, *args, **kwargs):
         return super().create(*args, **kwargs)
     
+    def perform_create(self, serializer):
+        serializer.save(seller=self.request.user)
+  
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
     
