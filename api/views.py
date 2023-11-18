@@ -17,6 +17,8 @@ UserModel = get_user_model()
 
 
 class LoginView(TokenObtainPairView):
+    serializer_class = LoginSerializer
+
     @swagger_auto_schema(
         operation_summary='Get a user\'s JWT refresh and access tokens.',
         operation_description='Takes a set of user credentials (email and password) and returns '
