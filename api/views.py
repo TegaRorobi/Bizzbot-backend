@@ -126,7 +126,12 @@ class ProductsViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(seller=self.request.user)
-  
+
+    @swagger_auto_schema(
+        operation_summary='Retrieve a specific product by id',
+        operation_description='Accepts the id of the product as a path parameter, searches for the product '
+        'in the database, and returns details of the specific product.'
+    )
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
     
