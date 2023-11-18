@@ -160,8 +160,14 @@ class ProductsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
+        if self.action == 'get_all_products':
+            return Product.objects.order_by('-id')
         return Product.objects.prefetch_related('seller').filter(seller=self.request.user).order_by('-id')
     
+    @action(detail=False)
+    def get_all_products(self, *args, **kwargs):
+        return super().list(*args, **kwargs)
+
     @swagger_auto_schema(
         operation_summary='List out all products offered by the currently authenticated user.',
         operation_description='Accepts the page number as a query parameter and returns a '
