@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions, mixins
+from rest_framework import viewsets, permissions, status
+from rest_framework.response import Response
 from rest_framework.decorators import action
 from .serializers import *
 
@@ -98,6 +99,25 @@ class UsersViewSet(viewsets.ModelViewSet):
     )
     def destroy(self, *args, **kwargs):
         return super().destroy(*args, **kwargs)
+
+    @action(detail=False)
+    def get_opening_days(self, request, **kwargs):
+        print(kwargs)
+        lookup = self.lookup_field or 'pk'
+        user_id = int(kwargs.get(self.lookup_url_kwarg or self.lookup_field))
+        try:
+            user = UserModel._default_manager.get(**{lookup:user_id})
+            opening_days = user.opening_days.order_by('-id')
+            page = self.paginate_queryset(opening_days)
+            if page is not None:
+                serializer = OpeningDaySerializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
+            serializer = OpeningDaySerializer(opening_days, many=True)
+            return Response(serializer.data)
+        except UserModel.DoesNotExist:
+            return Response({
+                'error': f'User with {lookup} {user_id} does not exist!'
+            }, status=status.HTTP_404_NOT_FOUND)
 
 
 class ProductsViewSet(viewsets.ModelViewSet):

@@ -11,7 +11,8 @@ auth_paths = (
 
 user_paths = (
     re_path('^users/?$', UsersViewSet.as_view(LIST_CREATE), name='users-list'),
-    re_path('^users/(?P<pk>\d+)/?$', UsersViewSet.as_view(RETRIEVE_UPDATE_DESTROY), name='user-detail'),)
+    re_path('^users/(?P<pk>\d+)/?$', UsersViewSet.as_view(RETRIEVE_UPDATE_DESTROY), name='user-detail'),
+    re_path('^users/(?P<pk>\d+)/opening-days/?$', UsersViewSet.as_view({'get':'get_opening_days'}), name='user-opening-days'))
 
 product_paths = (
     re_path('^products/?$', ProductsViewSet.as_view(LIST_CREATE), name='products-list'),
