@@ -9,7 +9,7 @@ UserModel = get_user_model()
 
 class Product(BaseModel):
 
-    seller = models.ForeignKey(UserModel, verbose_name=('Product Owner'), on_delete=models.CASCADE)
+    seller = models.ForeignKey(UserModel, verbose_name=('Product Owner'), related_name='products', on_delete=models.CASCADE)
     name = models.CharField(_('Product Name'), max_length=255)
     price = models.DecimalField(_('Product Price'), max_digits=15, decimal_places=2, default=0.00)
     inventory = models.IntegerField(_('Product Inventory'), default=0)

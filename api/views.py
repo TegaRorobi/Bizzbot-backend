@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, mixins
+from rest_framework.decorators import action
 from .serializers import *
 
 from drf_yasg.utils import swagger_auto_schema
@@ -160,3 +161,15 @@ class ProductsViewSet(viewsets.ModelViewSet):
     )
     def destroy(self, *args, **kwargs):
         return super().destroy(*args, **kwargs)
+
+
+class OpeningDaysViewSet(viewsets.ModelViewSet):
+    
+    "API Viewset to list out, create, retrieve, update and delete the opening days of a user."
+
+    serializer_class = OpeningDaySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        return self.request.user.opening_days.order_by('-id')
+
+

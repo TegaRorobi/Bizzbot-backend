@@ -17,9 +17,13 @@ product_paths = (
     re_path('^products/?$', ProductsViewSet.as_view(LIST_CREATE), name='products-list'),
     re_path('^products/(?P<pk>\d+)/?$', ProductsViewSet.as_view(RETRIEVE_UPDATE_DESTROY), name='product-detail'),)
 
+opening_day_paths = (
+    re_path('^opening-days/?$', OpeningDaysViewSet.as_view(LIST_CREATE), name='opening-days-list'),
+    re_path('^opening-days/(?P<pk>\d+)/?$', OpeningDaysViewSet.as_view(RETRIEVE_UPDATE_DESTROY), name='opening-day-detail'),)
 
 urlpatterns = [
     *auth_paths,
     *user_paths,
     *product_paths,
+    *opening_day_paths,
 ]
