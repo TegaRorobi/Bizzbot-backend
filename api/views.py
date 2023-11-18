@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from .serializers import *
 
 from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -48,7 +49,10 @@ class UsersViewSet(viewsets.ModelViewSet):
     "API Viewset to list out, create, retrieve, update and delete users."
 
     queryset = UserModel.objects.order_by('-id')
-    serializer_class = UserSerializer
+    def get_serializer_class(self):
+        if self.action == 'get_opening_days':
+            return OpeningDaySerializer
+        return UserSerializer
 
     @swagger_auto_schema(
         operation_summary='List out all users',
@@ -100,19 +104,48 @@ class UsersViewSet(viewsets.ModelViewSet):
     def destroy(self, *args, **kwargs):
         return super().destroy(*args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary= 'Get the opening days of any user.',
+        operation_description= 'This endpoint accepts the id of a user as a path parameter and, '
+        'the page number of the paginated response as a query parameter. It searches for the User '
+        'in the database, and returns all the opening days of the user.',
+        responses= {
+            400: openapi.Response(
+                description= "Invalid User id. Expected an integer.",
+                examples= {
+                    "application/json": {
+                        'error': 'Invalid User id \'x\'. Expected an integer.'
+                    }
+                }
+            ),
+            404: openapi.Response(
+                description= "User does not exist.",
+                examples= {
+                    "application/json": {
+                        'error': 'User with pk -1 does not exist!'
+                    }
+                }
+            )
+        }
+    )
     @action(detail=False)
     def get_opening_days(self, request, **kwargs):
-        print(kwargs)
         lookup = self.lookup_field or 'pk'
-        user_id = int(kwargs.get(self.lookup_url_kwarg or self.lookup_field))
+        user_id = kwargs.get(self.lookup_url_kwarg or self.lookup_field)
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            return Response({
+                'error': f'Invalid User id "{user_id}". Expected an integer.'
+            }, status=status.HTTP_400_BAD_REQUEST)
         try:
             user = UserModel._default_manager.get(**{lookup:user_id})
             opening_days = user.opening_days.order_by('-id')
             page = self.paginate_queryset(opening_days)
             if page is not None:
-                serializer = OpeningDaySerializer(page, many=True)
+                serializer = self.get_serializer(page, many=True)
                 return self.get_paginated_response(serializer.data)
-            serializer = OpeningDaySerializer(opening_days, many=True)
+            serializer = self.get_serializer(opening_days, many=True)
             return Response(serializer.data)
         except UserModel.DoesNotExist:
             return Response({
