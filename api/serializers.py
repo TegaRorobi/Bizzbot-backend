@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
 from .models import *
+from .models2 import *
 
 from django_countries.serializers import CountryFieldMixin
 from django.contrib.auth import get_user_model
@@ -24,4 +25,10 @@ class ProductSerializer(serializers.ModelSerializer):
     seller = serializers.PrimaryKeyRelatedField(read_only=True, many=False)
     class Meta:
         model = Product
+        fields = '__all__'
+
+
+class OpeningDaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OpeningDay
         fields = '__all__'
