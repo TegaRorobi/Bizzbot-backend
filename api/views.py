@@ -164,6 +164,11 @@ class ProductsViewSet(viewsets.ModelViewSet):
             return Product.objects.order_by('-id')
         return Product.objects.prefetch_related('seller').filter(seller=self.request.user).order_by('-id')
     
+    @swagger_auto_schema(
+        operation_summary= "Get all products.",
+        operation_description= "This endpoint accepts a page number as a query parameter, and returns a paginated "
+        'response of all the products stored in the database, irrespective of the currently authenticated user.'
+    )
     @action(detail=False)
     def get_all_products(self, *args, **kwargs):
         return super().list(*args, **kwargs)
