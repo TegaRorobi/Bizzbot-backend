@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
+from api.models2 import OpeningDay
 
 from .manager import UserManager
 
@@ -52,6 +53,7 @@ class User(AbstractUser):
     business_name = models.CharField(_('Business Name'), max_length=255, null=True, blank=True)
     business_description = models.TextField(_('Business Description'), null=True, blank=True)
 
+    opening_days = models.ManyToManyField(OpeningDay, verbose_name=_('Opening Days'))
 
     objects = UserManager()
     
