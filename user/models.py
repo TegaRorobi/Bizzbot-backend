@@ -59,4 +59,4 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.username or self.email
+        return self.full_name or self.email or self.username 

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .serializers import *
 
 from drf_yasg.utils import swagger_auto_schema
@@ -97,3 +97,13 @@ class UsersViewSet(viewsets.ModelViewSet):
     )
     def destroy(self, *args, **kwargs):
         return super().destroy(*args, **kwargs)
+
+
+class ProductsViewSet(viewsets.ModelViewSet):
+    
+    "API Viewset to create, retrieve, list out and retrieve products."
+
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        return Product.objects.prefetch_related('seller').filter(seller=self.request.user).order_by('-id')
