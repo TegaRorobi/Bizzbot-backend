@@ -107,3 +107,26 @@ class ProductsViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
         return Product.objects.prefetch_related('seller').filter(seller=self.request.user).order_by('-id')
+    
+    @swagger_auto_schema(
+        operation_summary='List out all products offered by the currently authenticated user.',
+        operation_description='Accepts the page number as a query parameter and returns a '
+        'paginated response of all the products offered by the currently authenticated user.'
+    )
+    def list(self, *args, **kwargs):
+        return super().list(*args, **kwargs)
+
+    def create(self, *args, **kwargs):
+        return super().create(*args, **kwargs)
+    
+    def retrieve(self, *args, **kwargs):
+        return super().retrieve(*args, **kwargs)
+    
+    def update(self, *args, **kwargs):
+        return super().update(*args, **kwargs)
+    
+    def partial_update(self, *args, **kwargs):
+        return super().partial_update(*args, **kwargs)
+    
+    def destroy(self, *args, **kwargs):
+        return super().destroy(*args, **kwargs)
