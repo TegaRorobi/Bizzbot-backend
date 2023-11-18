@@ -18,7 +18,7 @@ class UserSerializer(CountryFieldMixin, serializers.ModelSerializer):
         validated_data['password'] = make_password(clear_password)
         validated_data.setdefault('is_active', 'True')
         return super().create(validated_data)
-    
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
