@@ -135,6 +135,12 @@ class ProductsViewSet(viewsets.ModelViewSet):
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
     
+    @swagger_auto_schema(
+        operation_summary='Update all writeable fields of a specific product',
+        operation_description='This endpoint accepts the id of the product as a path parameter, '
+        'searches for the product in the database, and attempts to update ALL fields of the product.\n'
+        'Note: The PATCH method to this endpoint might be a safer option, depending on the use case.'
+    )
     def update(self, *args, **kwargs):
         return super().update(*args, **kwargs)
     
