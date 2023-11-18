@@ -9,3 +9,9 @@ class ProductAdmin(admin.ModelAdmin):
     @admin.display()
     def seller(self, obj):
         return obj.seller.full_name
+    
+
+@admin.register(OpeningDay)
+class OpeningDayAdmin(admin.ModelAdmin):
+    model = OpeningDay
+    list_display = 'day', 'opening_time', 'closing_time'

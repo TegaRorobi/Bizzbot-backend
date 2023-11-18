@@ -31,7 +31,7 @@ class OpeningDay(BaseModel):
         ('Saturday', 'Saturday'),
     ]
 
-    day = models.CharField(_('Day of the Week'), max_length=20)
+    day = models.CharField(_('Day of the Week'), choices=DAY_CHOICES, max_length=20)
     opening_time = models.TimeField(_('Opening Time'))
     closing_time = models.TimeField(_('Closing Time'))
 
