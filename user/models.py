@@ -53,7 +53,7 @@ class User(AbstractUser):
     business_name = models.CharField(_('Business Name'), max_length=255, null=True, blank=True)
     business_description = models.TextField(_('Business Description'), null=True, blank=True)
 
-    opening_days = models.ManyToManyField(OpeningDay, verbose_name=_('Opening Days'))
+    opening_days = models.ManyToManyField(OpeningDay, verbose_name=_('Opening Days'), null=True, blank=True)
 
     objects = UserManager()
     
