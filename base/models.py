@@ -13,7 +13,8 @@ class BaseModel(models.Model):
     @classmethod
     def new(cls, **kwargs) -> models.Model:
         "Create and save a new model instance"
-        ins = cls.objects.create(**kwargs)
+        ins = cls(**kwargs)
+        ins.save()
         return ins
 
     def update(self, **kwargs) -> None:
@@ -21,3 +22,4 @@ class BaseModel(models.Model):
             if hasattr(self, k):
                 setattr(self, k, v)
         self.save()
+        self.refresh_from_db()
