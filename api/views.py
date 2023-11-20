@@ -238,4 +238,16 @@ class OpeningDaysViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.request.user.opening_days.order_by('-id')
 
+    def perform_create(self, serializer):
+        # try to get an already existing OpeningDay object with the presented data, if we find one,
+        # link that one to the user, and if we don't, create a new one and link it to the user.
+        try:
+            ins = OpeningDay.objects.get(**serializer.validated_data)
+        except:
+            ins = serializer.save()
+        self.request.user.opening_days.add(ins)
+
+    def perform_destroy(self, instance):
+        self.request.user.opening_days.remove(instance)
+
 
